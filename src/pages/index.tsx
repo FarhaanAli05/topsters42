@@ -101,8 +101,11 @@ export default function Home() {
     if (!!search) {
       setIsSearching(true);
       axios
+        // .get(
+        //   `https://topsters4.vercel.app/api/endpoints?category=${category}&name=${search}`
+        // )
         .get(
-          `https://topsters4.vercel.app/api/endpoints?category=${category}&name=${search}`
+          `/api/endpoints?category=${category}&name=${search}`
         )
         .then((response) => {
           console.log(response.data[0].cover);
@@ -153,7 +156,7 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState(false);
   const [itemForm, setItemForm] = useState({ title: "", url: "" });
   const [importForm, setImportForm] = useState([]);
-  const [category, setCategory] = useState(Category.games);
+  const [category, setCategory] = useState(Category.music);
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState("add");
   const dispatch = useDispatch();
@@ -188,11 +191,16 @@ export default function Home() {
   const [searchedItems, setSearchedItems] = useState<
     { title: string; cover: string }[]
   >([]);
+
+  useEffect(() => {
+    setSearchedItems([]);
+  }, [category]);
+
   return (
     <>
       <Head>
-        <title>Topsters 4</title>
-        <meta name="description" content="Topsters 4" />
+        <title>Topsters 42</title>
+        <meta name="description" content="Topsters 42" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
@@ -203,7 +211,7 @@ export default function Home() {
               className={`${styles["section-container"]} ${styles["app-header"]}`}
             >
               <div className={`${styles.section} ${styles.header}`}>
-                <h1>Topsters 4</h1>
+                <h1>Topsters 42</h1>
               </div>
             </div>
             <div className={`${styles["section-container"]} ${styles.toolbar}`}>
@@ -269,12 +277,6 @@ export default function Home() {
                           label="categories"
                           options={[
                             {
-                              id: Category.games,
-                              name: Category.games,
-                              icon: "/icons/controller.svg",
-                              hideLabel: true,
-                            },
-                            {
                               id: Category.music,
                               name: Category.music,
                               icon: "/icons/music.svg",
@@ -290,6 +292,12 @@ export default function Home() {
                               id: Category.tvshows,
                               name: Category.tvshows,
                               icon: "/icons/tv.svg",
+                              hideLabel: true,
+                            },
+                            {
+                              id: Category.games,
+                              name: Category.games,
+                              icon: "/icons/controller.svg",
                               hideLabel: true,
                             },
                             {
@@ -619,6 +627,22 @@ export default function Home() {
                         <div className={styles.values}>
                           <Selector
                             options={[
+                              { id: "Collage", name: "Collage" },
+                              { id: "Top 42", name: "Top 42" },
+                              { id: "Top 100", name: "Top 100" },
+                            ]}
+                            selected={[]}
+                            onChange={(value) => dispatch(setPreset(value))}
+                          ></Selector>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className={styles["input-group"]}>
+                      <div className={styles.input}>
+                        <label className={styles["input-label"]}>Presets</label>
+                        <div className={styles.values}>
+                          <Selector
+                            options={[
                               { id: "Topsters", name: "Topsters" },
                               { id: "Museum", name: "Museum" },
                             ]}
@@ -627,14 +651,15 @@ export default function Home() {
                           ></Selector>
                         </div>
                       </div>
-                    </div>
-                    <div className={styles["input-group"]}>
+                    </div> */}
+                    {rows > -1 && columns > -1 && <div className={styles["input-group"]}>
                       <div className={styles.input}>
                         <label className={styles["input-label"]}>Rows</label>
                         <div className={styles.values}>
                           <input
                             onChange={(value) => {
                               dispatch(setRows(parseInt(value.target.value)));
+                              console.log(rows)
                             }}
                             min={1}
                             max={10}
@@ -665,7 +690,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                    </div>
+                    </div>}
                     <div className={styles["input-group"]}>
                       <div className={styles.input}>
                         <label className={styles["input-label"]}>Title</label>
@@ -1233,7 +1258,7 @@ export default function Home() {
                     id="imageContainer"
                     className={styles.content}
                     style={{
-                      padding: gap + "px",
+                      padding: "25px",
                       backgroundColor:
                         backgroundType === BackgroundType.color
                           ? backgroundColor1 +
@@ -1351,7 +1376,7 @@ export default function Home() {
                                       : borderRadius,
                                     boxShadow: `${
                                       showShadows
-                                        ? "black 3px 3px 10px 0px"
+                                        ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
                                         : "unset"
                                     }`,
                                     border: `${borderSize}px solid ${borderColor} `,
@@ -1418,7 +1443,7 @@ export default function Home() {
                                       border: `${borderSize}px solid ${borderColor}`,
                                       boxShadow: `${
                                         showShadows
-                                          ? "black 3px 3px 10px 0px"
+                                          ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
                                           : "unset"
                                       }`,
                                     }}

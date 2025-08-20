@@ -39,7 +39,7 @@ const copy = (targetState: State, sourceState: State) => {
 
 const initialState: State = {
   title: "",
-  showTitles: true,
+  showTitles: false,
   rows: 5,
   columns: 5,
   backgroundType: BackgroundType.color,
@@ -47,7 +47,7 @@ const initialState: State = {
   backgroundColor2: "#000000",
   backgroundOpacity: 16,
   gradientDirection: Direction.right,
-  gap: 20,
+  gap: 2,
   borderColor: "#cccccc",
   isCircle: false,
   borderSize: 0,
@@ -149,42 +149,76 @@ export const stateSlice = createSlice({
       state.items[value.payload] = { title: "", cover: "" };
     },
     setPreset: (state, value: { payload: string }) => {
-      if (value.payload === "Topsters") {
+      if (value.payload === "Collage") {
         state.rows = 5;
         state.columns = 5;
-        state.showTitles = true;
+        state.showTitles = false;
         state.backgroundType = BackgroundType.color;
         state.backgroundColor1 = "#000000";
         state.backgroundOpacity = 16;
-        state.gap = 20;
+        state.gap = 2;
         state.borderSize = 0;
         state.borderRadius = 0;
         state.isCircle = false;
-        state.showNumbers = true;
+        state.showNumbers = false;
         state.showShadows = false;
         state.font = Font.monospace;
         state.textColor = "#ffffff";
         state.titlesPosition = Position.side;
       }
-      if (value.payload === "Museum") {
-        state.rows = 3;
-        state.columns = 8;
-        state.showTitles = true;
-        state.backgroundType = BackgroundType.gradient;
-        state.gradientDirection = Direction.topRight;
+      if (value.payload === "Top 42") {
+        state.rows = -1;
+        state.columns = -1;
+        state.showTitles = false;
+        state.backgroundType = BackgroundType.color;
         state.backgroundColor1 = "#000000";
-        state.backgroundColor2 = "#2c313a";
         state.backgroundOpacity = 16;
-        state.gap = 20;
+        state.gap = 2;
         state.borderSize = 0;
-        state.borderRadius = 8;
+        state.borderRadius = 0;
         state.isCircle = false;
-        state.showNumbers = true;
-        state.showShadows = true;
-        state.font = Font.lato;
+        state.showNumbers = false;
+        state.showShadows = false;
+        state.font = Font.monospace;
         state.textColor = "#ffffff";
-        state.titlesPosition = Position.cover;
+        state.titlesPosition = Position.side;
       }
+      // if (value.payload === "Topsters") {
+      //   state.rows = 5;
+      //   state.columns = 5;
+      //   state.showTitles = true;
+      //   state.backgroundType = BackgroundType.color;
+      //   state.backgroundColor1 = "#000000";
+      //   state.backgroundOpacity = 16;
+      //   state.gap = 2;
+      //   state.borderSize = 0;
+      //   state.borderRadius = 0;
+      //   state.isCircle = false;
+      //   state.showNumbers = true;
+      //   state.showShadows = false;
+      //   state.font = Font.monospace;
+      //   state.textColor = "#ffffff";
+      //   state.titlesPosition = Position.side;
+      // }
+      // if (value.payload === "Museum") {
+      //   state.rows = 3;
+      //   state.columns = 8;
+      //   state.showTitles = true;
+      //   state.backgroundType = BackgroundType.gradient;
+      //   state.gradientDirection = Direction.topRight;
+      //   state.backgroundColor1 = "#000000";
+      //   state.backgroundColor2 = "#2c313a";
+      //   state.backgroundOpacity = 16;
+      //   state.gap = 2;
+      //   state.borderSize = 0;
+      //   state.borderRadius = 8;
+      //   state.isCircle = false;
+      //   state.showNumbers = true;
+      //   state.showShadows = true;
+      //   state.font = Font.lato;
+      //   state.textColor = "#ffffff";
+      //   state.titlesPosition = Position.cover;
+      // }
     },
     importState: (state, value: { payload: any }) => {
       const fromFile = JSON.parse(value.payload.target.result);

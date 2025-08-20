@@ -21,9 +21,6 @@ export default async function handler(
 ) {
   // await getIGDBToken();
   switch (req.query.category) {
-    case Category.games:
-      await gamesRequest(req.query.name, res);
-      break;
     case Category.music:
       await musicRequest(req.query.name, res);
       break;
@@ -36,6 +33,9 @@ export default async function handler(
     case Category.tvshows:
       await showsRequest(req.query.name, res);
       break;
+    case Category.games:
+      await gamesRequest(req.query.name, res);
+      break;
     case Category.books:
       await booksRequest(req.query.name, res);
       break;
@@ -43,35 +43,6 @@ export default async function handler(
       res.status(500).json("Error");
       break;
   }
-}
-
-async function gamesRequest(name: string, res: any) {
-  const query = "fields name,cover.url;" + 'search "' + name + '"; limit 50;';
-  await axios({
-    url: "https://api.igdb.com/v4/games/",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Client-ID": process.env.IGDB_ID,
-      Authorization: "Bearer " + process.env.IGDB_TOKEN,
-    },
-    data: query,
-  })
-    .then(async (resp) => {
-      const ret = resp.data.map(
-        (game: { cover: { url: string }; name: string }) => {
-          const cover = game.cover?.url.replace("t_thumb", "t_cover_big");
-          return {
-            title: game.name,
-            cover,
-          };
-        }
-      );
-      res.status(200).json(ret);
-    })
-    .catch((error) => {
-      res.status(500).json(error);
-    });
 }
 
 async function musicRequest(name: string, res: any) {
@@ -84,7 +55,7 @@ async function musicRequest(name: string, res: any) {
         (album: { artist: string; name: string; image: any }) => {
           const cover = album.image
             .find((image: { size: string }) => image.size === "large")
-            ["#text"].replace("https:", "");
+          ["#text"].replace("https:", "");
           return {
             title: `${album.artist} - ${album.name}`,
             cover,
@@ -109,7 +80,7 @@ async function lastfmRequest(name: string, res: any) {
         (album: { artist: string; name: string; image: any }) => {
           const cover = album.image
             .find((image: { size: string }) => image.size === "large")
-            ["#text"].replace("https:", "");
+          ["#text"].replace("https:", "");
           return {
             title: `${album.artist} - ${album.name}`,
             cover,
@@ -159,7 +130,7 @@ async function showsRequest(name: string, res: any) {
     url: `https://api.themoviedb.org/3/search/tv?query=${name}`,
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
+      Authorization: `Bearer ${process.env.TMDB_TOKEN}`
     },
   })
     .then(async (resp) => {
@@ -175,6 +146,35 @@ async function showsRequest(name: string, res: any) {
             cover,
           };
         });
+      res.status(200).json(ret);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+}
+
+async function gamesRequest(name: string, res: any) {
+  const query = "fields name,cover.url;" + 'search "' + name + '"; limit 50;';
+  await axios({
+    url: "https://api.igdb.com/v4/games/",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Client-ID": process.env.IGDB_ID,
+      Authorization: "Bearer " + process.env.IGDB_TOKEN,
+    },
+    data: query,
+  })
+    .then(async (resp) => {
+      const ret = resp.data.map(
+        (game: { cover: { url: string }; name: string }) => {
+          const cover = game.cover?.url.replace("t_thumb", "t_cover_big");
+          return {
+            title: game.name,
+            cover,
+          };
+        }
+      );
       res.status(200).json(ret);
     })
     .catch((error) => {

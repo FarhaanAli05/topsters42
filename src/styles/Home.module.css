@@ -381,9 +381,9 @@ input[type="color"].value:hover {
 
 .covers {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  /* grid-column-gap: 5px; */
+  /* grid-row-gap: 20px; */
   justify-items: center;
   align-content: flex-start;
   padding: 8px;
@@ -399,8 +399,10 @@ input[type="color"].value:hover {
 }
 
 .cover img {
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: 1px solid var(--borderColor);
+  height: 100%;
+  width: 100%;
 }
 
 .workspace-content {

@@ -50,11 +50,11 @@ export enum Position {
 }
 
 export enum Category {
-  games = "games",
   music = "music",
   lastfm = "Lastfm",
   movies = "movies",
   tvshows = "TV shows",
+  games = "games",
   books = "books",
   pictures = "pictures",
 }
