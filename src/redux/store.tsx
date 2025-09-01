@@ -40,8 +40,8 @@ const copy = (targetState: State, sourceState: State) => {
 const initialState: State = {
   title: "",
   showTitles: false,
-  rows: 5,
-  columns: 5,
+  rows: -1,
+  columns: -1,
   backgroundType: BackgroundType.color,
   backgroundColor1: "#000000",
   backgroundColor2: "#000000",
@@ -58,6 +58,7 @@ const initialState: State = {
   textColor: "#ffffff",
   titlesPosition: Position.side,
   items: itemArray,
+  top42: true
 };
 
 export const stateSlice = createSlice({
@@ -165,6 +166,7 @@ export const stateSlice = createSlice({
         state.font = Font.monospace;
         state.textColor = "#ffffff";
         state.titlesPosition = Position.side;
+        state.top42 = false;
       }
       if (value.payload === "Top 42") {
         state.rows = -1;
@@ -182,6 +184,7 @@ export const stateSlice = createSlice({
         state.font = Font.monospace;
         state.textColor = "#ffffff";
         state.titlesPosition = Position.side;
+        state.top42 = true;
       }
       // if (value.payload === "Topsters") {
       //   state.rows = 5;

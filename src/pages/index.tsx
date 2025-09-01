@@ -95,7 +95,7 @@ export default function Home() {
     }
   };
 
-  const importItems = () => {};
+  const importItems = () => { };
 
   const searchItems = () => {
     if (!!search) {
@@ -188,6 +188,7 @@ export default function Home() {
   const textColor = useSelector((state: State) => state.textColor);
   const titlesPosition = useSelector((state: State) => state.titlesPosition);
   const items = useSelector((state: State) => state.items);
+  const top42 = useSelector((state: State) => state.top42);
   const [searchedItems, setSearchedItems] = useState<
     { title: string; cover: string }[]
   >([]);
@@ -218,9 +219,8 @@ export default function Home() {
               <div className={styles["section-title"]}>
                 <div
                   onClick={() => setTab("add")}
-                  className={`${styles.tab} ${
-                    tab === "add" && styles["selected-tab"]
-                  }`}
+                  className={`${styles.tab} ${tab === "add" && styles["selected-tab"]
+                    }`}
                 >
                   <h2>
                     <Image
@@ -235,9 +235,8 @@ export default function Home() {
                 </div>
                 <div
                   onClick={() => setTab("options")}
-                  className={`${styles.tab} ${
-                    tab === "options" && styles["selected-tab"]
-                  }`}
+                  className={`${styles.tab} ${tab === "options" && styles["selected-tab"]
+                    }`}
                 >
                   <h2>
                     <Image
@@ -252,9 +251,8 @@ export default function Home() {
                 </div>
                 <div
                   onClick={() => setTab("about")}
-                  className={`${styles.tab} ${
-                    tab === "about" && styles["selected-tab"]
-                  }`}
+                  className={`${styles.tab} ${tab === "about" && styles["selected-tab"]
+                    }`}
                 >
                   <h2>
                     <Image
@@ -345,9 +343,8 @@ export default function Home() {
                               <Image
                                 width={10}
                                 height={10}
-                                className={`${styles.icon} ${
-                                  isSearching && styles.loading
-                                }`}
+                                className={`${styles.icon} ${isSearching && styles.loading
+                                  }`}
                                 src="/icons/search.svg"
                                 alt="Search"
                               ></Image>
@@ -480,8 +477,8 @@ export default function Home() {
                         category === Category.lastfm
                           ? { display: "none" }
                           : category === Category.pictures
-                          ? { height: "unset" }
-                          : {}
+                            ? { height: "unset" }
+                            : {}
                       }
                       className={`${styles["input-group"]} ${styles.items}`}
                     >
@@ -1240,9 +1237,8 @@ export default function Home() {
                       <Image
                         width={10}
                         height={10}
-                        className={`${styles.icon} ${
-                          isDownloading && styles.loading
-                        }`}
+                        className={`${styles.icon} ${isDownloading && styles.loading
+                          }`}
                         src="/icons/download.svg"
                         alt="Download"
                       ></Image>
@@ -1262,39 +1258,35 @@ export default function Home() {
                       backgroundColor:
                         backgroundType === BackgroundType.color
                           ? backgroundColor1 +
-                            Math.max(backgroundOpacity * 16 - 1, 0)
-                              .toString(16)
-                              .padStart(2, "0")
+                          Math.max(backgroundOpacity * 16 - 1, 0)
+                            .toString(16)
+                            .padStart(2, "0")
                           : "unset",
                       backgroundImage:
                         backgroundType === BackgroundType.gradient
-                          ? `linear-gradient(to ${gradientDirection}, ${
-                              backgroundColor1 +
-                              Math.max(backgroundOpacity * 16 - 1, 0)
-                                .toString(16)
-                                .padStart(2, "0")
-                            }, ${
-                              backgroundColor2 +
-                              Math.max(backgroundOpacity * 16 - 1, 0)
-                                .toString(16)
-                                .padStart(2, "0")
-                            })`
+                          ? `linear-gradient(to ${gradientDirection}, ${backgroundColor1 +
+                          Math.max(backgroundOpacity * 16 - 1, 0)
+                            .toString(16)
+                            .padStart(2, "0")
+                          }, ${backgroundColor2 +
+                          Math.max(backgroundOpacity * 16 - 1, 0)
+                            .toString(16)
+                            .padStart(2, "0")
+                          })`
                           : backgroundType === BackgroundType.radialGradient
-                          ? `radial-gradient(at ${gradientDirection}, ${
-                              backgroundColor1 +
-                              Math.max(backgroundOpacity * 16 - 1, 0)
-                                .toString(16)
-                                .padStart(2, "0")
-                            }, ${
-                              backgroundColor2 +
-                              Math.max(backgroundOpacity * 16 - 1, 0)
-                                .toString(16)
-                                .padStart(2, "0")
+                            ? `radial-gradient(at ${gradientDirection}, ${backgroundColor1 +
+                            Math.max(backgroundOpacity * 16 - 1, 0)
+                              .toString(16)
+                              .padStart(2, "0")
+                            }, ${backgroundColor2 +
+                            Math.max(backgroundOpacity * 16 - 1, 0)
+                              .toString(16)
+                              .padStart(2, "0")
                             })`
-                          : "unset",
+                            : "unset",
                     }}
                   >
-                    {title && (
+                    {/* {title && (
                       <div
                         className={styles.title}
                         style={{
@@ -1308,103 +1300,220 @@ export default function Home() {
                       >
                         {title}
                       </div>
-                    )}
-                    <div className={styles["workspace-covers-container"]}>
-                      <div
+                    )} */}
+                    <div className={styles["workspace-and-titles-container"]}
+                      style={{
+                        display: "flex"
+                      }}>
+                      <div className={styles["workspace-covers-container"]}
                         style={{
-                          gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                          gap: gap,
-                          padding: gap,
+                          display: "flex",
+                          flexDirection: "column",
                         }}
-                        className={styles["workspace-covers"]}
                       >
-                        {items
-                          .filter((_item, i) => i < rows * columns)
-                          .map((item, i) => (
+                        {!top42 &&
+                          <div
+                            style={{
+                              gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                              gap: gap,
+                              padding: gap,
+                            }}
+                            className={styles["workspace-covers"]}
+                          >
+                            {items
+                              .filter((_item, i) => i < rows * columns)
+                              .map((item, i) => (
+                                <div
+                                  key={i}
+                                  className={`${styles["workspace-cover"]} ${[draggingItem.index, hoverItem].includes(i) &&
+                                    styles.dragging
+                                    }`}
+                                  style={{
+                                    minHeight: "100px",
+                                    height: `${titlesPosition === Position.side
+                                      ? "100px"
+                                      : "unset"
+                                      }`,
+                                    borderRadius: borderRadius,
+                                  }}
+                                  onDrop={() => onDrop(i)}
+                                  onDragOver={(e) => {
+                                    e.preventDefault();
+                                    setHoverItem(i);
+                                  }}
+                                  draggable={hasData(item)}
+                                  onDragStart={() => {
+                                    setDraggingItem({
+                                      item: { ...item },
+                                      index: i,
+                                      origin: "collection",
+                                    });
+                                  }}
+                                  onClick={(e: any) => {
+                                    if (e?.target?.id !== "remove") {
+                                      if (draggingItem.index === -1) {
+                                        if (hasData(item)) {
+                                          setDraggingItem({
+                                            item: { ...item },
+                                            index: i,
+                                            origin: "collection",
+                                          });
+                                        }
+                                      } else {
+                                        onDrop(i);
+                                      }
+                                    }
+                                  }}
+                                  onDragEnd={() => resetDrag()}
+                                >
+                                  {!hasData(item) && (
+                                    <div
+                                      style={{
+                                        backgroundColor: `#ccc`,
+                                        height: "100px",
+                                        borderRadius: isCircle
+                                          ? "100%"
+                                          : borderRadius,
+                                        boxShadow: `${showShadows
+                                          ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                          : "unset"
+                                          }`,
+                                        border: `${borderSize}px solid ${borderColor} `,
+                                      }}
+                                      className={`${styles.cover} ${styles["no-items"]}`}
+                                    >
+                                      <span style={{ color: "black" }}>
+                                        {i + 1}
+                                      </span>
+                                    </div>
+                                  )}
+                                  {hasData(item) && draggingItem.index === -1 && (
+                                    <>
+                                      <div
+                                        id="remove"
+                                        onClick={() => {
+                                          dispatch(removeItem(i));
+                                          resetDrag();
+                                        }}
+                                        className={styles.delete}
+                                      >
+                                        <img
+                                          id="remove"
+                                          className={styles.icon}
+                                          src="/icons/remove.svg"
+                                        ></img>
+                                      </div>
+                                      <div
+                                        onClick={(e: any) => {
+                                          if (e?.target?.id !== "remove") {
+                                            if (draggingItem.index === -1) {
+                                              if (hasData(item)) {
+                                                setDraggingItem({
+                                                  item: { ...item },
+                                                  index: i,
+                                                  origin: "collection",
+                                                });
+                                              }
+                                            } else {
+                                              onDrop(i);
+                                            }
+                                          }
+                                        }}
+                                        className={styles.move}
+                                      >
+                                        <img
+                                          className={styles.icon}
+                                          src="/icons/drag.svg"
+                                        ></img>
+                                      </div>
+                                    </>
+                                  )}
+                                  {hasData(item) && (
+                                    <>
+                                      <img
+                                        className={styles.cover}
+                                        style={{
+                                          borderRadius: isCircle
+                                            ? "100%"
+                                            : borderRadius,
+                                          height: `${isCircle ? "100px" : "unset"}`,
+                                          maxHeight: "100px",
+                                          maxWidth: "100px",
+                                          border: `${borderSize}px solid ${borderColor}`,
+                                          boxShadow: `${showShadows
+                                            ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                            : "unset"
+                                            }`,
+                                        }}
+                                        src={"https:" + item.cover}
+                                        alt="Cover"
+                                        width={isCircle ? 100 : "unset"}
+                                      ></img>
+                                      {showTitles &&
+                                        titlesPosition === Position.cover && (
+                                          <div
+                                            className={styles["cover-titles"]}
+                                            style={{
+                                              fontFamily: font,
+                                              color: textColor,
+                                              textShadow: `${showShadows
+                                                ? "black 1px 1px 1px"
+                                                : ""
+                                                }`,
+                                            }}
+                                          >
+                                            <div>
+                                              {`${showNumbers ? `${i + 1}. ` : ""
+                                                }` + item.title}
+                                            </div>
+                                          </div>
+                                        )}
+                                    </>
+                                  )}
+                                </div>
+                              ))}
+                          </div>
+                        }
+                        {top42 &&
+                          <>
                             <div
-                              key={i}
-                              className={`${styles["workspace-cover"]} ${
-                                [draggingItem.index, hoverItem].includes(i) &&
-                                styles.dragging
-                              }`}
                               style={{
-                                minHeight: "100px",
-                                height: `${
-                                  titlesPosition === Position.side
-                                    ? "100px"
-                                    : "unset"
-                                }`,
-                                borderRadius: borderRadius,
+                                gridTemplateColumns: `repeat(5, 1fr)`,
+                                gap: gap,
+                                padding: gap,
                               }}
-                              onDrop={() => onDrop(i)}
-                              onDragOver={(e) => {
-                                e.preventDefault();
-                                setHoverItem(i);
-                              }}
-                              draggable={hasData(item)}
-                              onDragStart={() => {
-                                setDraggingItem({
-                                  item: { ...item },
-                                  index: i,
-                                  origin: "collection",
-                                });
-                              }}
-                              onClick={(e: any) => {
-                                if (e?.target?.id !== "remove") {
-                                  if (draggingItem.index === -1) {
-                                    if (hasData(item)) {
+                              className={styles["workspace-covers"]}
+                            >
+                              {items
+                                .filter((_item, i) => i < 10)
+                                .map((item, i) => (
+                                  <div
+                                    key={i}
+                                    className={`${styles["workspace-cover"]} ${[draggingItem.index, hoverItem].includes(i) &&
+                                      styles.dragging
+                                      }`}
+                                    style={{
+                                      minHeight: "150px",
+                                      width: "150px",
+                                      height: `${titlesPosition === Position.side
+                                        ? "150px"
+                                        : "unset"
+                                        }`,
+                                      borderRadius: borderRadius,
+                                    }}
+                                    onDrop={() => onDrop(i)}
+                                    onDragOver={(e) => {
+                                      e.preventDefault();
+                                      setHoverItem(i);
+                                    }}
+                                    draggable={hasData(item)}
+                                    onDragStart={() => {
                                       setDraggingItem({
                                         item: { ...item },
                                         index: i,
                                         origin: "collection",
                                       });
-                                    }
-                                  } else {
-                                    onDrop(i);
-                                  }
-                                }
-                              }}
-                              onDragEnd={() => resetDrag()}
-                            >
-                              {!hasData(item) && (
-                                <div
-                                  style={{
-                                    backgroundColor: `#ccc`,
-                                    height: "100px",
-                                    borderRadius: isCircle
-                                      ? "100%"
-                                      : borderRadius,
-                                    boxShadow: `${
-                                      showShadows
-                                        ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
-                                        : "unset"
-                                    }`,
-                                    border: `${borderSize}px solid ${borderColor} `,
-                                  }}
-                                  className={`${styles.cover} ${styles["no-items"]}`}
-                                >
-                                  <span style={{ color: "black" }}>
-                                    {i + 1}
-                                  </span>
-                                </div>
-                              )}
-                              {hasData(item) && draggingItem.index === -1 && (
-                                <>
-                                  <div
-                                    id="remove"
-                                    onClick={() => {
-                                      dispatch(removeItem(i));
-                                      resetDrag();
                                     }}
-                                    className={styles.delete}
-                                  >
-                                    <img
-                                      id="remove"
-                                      className={styles.icon}
-                                      src="/icons/remove.svg"
-                                    ></img>
-                                  </div>
-                                  <div
                                     onClick={(e: any) => {
                                       if (e?.target?.id !== "remove") {
                                         if (draggingItem.index === -1) {
@@ -1420,62 +1529,447 @@ export default function Home() {
                                         }
                                       }
                                     }}
-                                    className={styles.move}
+                                    onDragEnd={() => resetDrag()}
                                   >
-                                    <img
-                                      className={styles.icon}
-                                      src="/icons/drag.svg"
-                                    ></img>
-                                  </div>
-                                </>
-                              )}
-                              {hasData(item) && (
-                                <>
-                                  <img
-                                    className={styles.cover}
-                                    style={{
-                                      borderRadius: isCircle
-                                        ? "100%"
-                                        : borderRadius,
-                                      height: `${isCircle ? "100px" : "unset"}`,
-                                      maxHeight: "100px",
-                                      maxWidth: "100px",
-                                      border: `${borderSize}px solid ${borderColor}`,
-                                      boxShadow: `${
-                                        showShadows
-                                          ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
-                                          : "unset"
-                                      }`,
-                                    }}
-                                    src={"https:" + item.cover}
-                                    alt="Cover"
-                                    width={isCircle ? 100 : "unset"}
-                                  ></img>
-                                  {showTitles &&
-                                    titlesPosition === Position.cover && (
+                                    {!hasData(item) && (
                                       <div
-                                        className={styles["cover-titles"]}
                                         style={{
-                                          fontFamily: font,
-                                          color: textColor,
-                                          textShadow: `${
-                                            showShadows
-                                              ? "black 1px 1px 1px"
-                                              : ""
-                                          }`,
+                                          backgroundColor: `#ccc`,
+                                          height: "150px",
+                                          width: "150px",
+                                          borderRadius: isCircle
+                                            ? "100%"
+                                            : borderRadius,
+                                          boxShadow: `${showShadows
+                                            ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                            : "unset"
+                                            }`,
+                                          border: `${borderSize}px solid ${borderColor} `,
                                         }}
+                                        className={`${styles.cover} ${styles["no-items"]}`}
                                       >
-                                        <div>
-                                          {`${
-                                            showNumbers ? `${i + 1}. ` : ""
-                                          }` + item.title}
-                                        </div>
+                                        <span style={{ color: "black" }}>
+                                          {i + 1}
+                                        </span>
                                       </div>
                                     )}
-                                </>
-                              )}
+                                    {hasData(item) && draggingItem.index === -1 && (
+                                      <>
+                                        <div
+                                          id="remove"
+                                          onClick={() => {
+                                            dispatch(removeItem(i));
+                                            resetDrag();
+                                          }}
+                                          className={styles.delete}
+                                        >
+                                          <img
+                                            id="remove"
+                                            className={styles.icon}
+                                            src="/icons/remove.svg"
+                                          ></img>
+                                        </div>
+                                        <div
+                                          onClick={(e: any) => {
+                                            if (e?.target?.id !== "remove") {
+                                              if (draggingItem.index === -1) {
+                                                if (hasData(item)) {
+                                                  setDraggingItem({
+                                                    item: { ...item },
+                                                    index: i,
+                                                    origin: "collection",
+                                                  });
+                                                }
+                                              } else {
+                                                onDrop(i);
+                                              }
+                                            }
+                                          }}
+                                          className={styles.move}
+                                        >
+                                          <img
+                                            className={styles.icon}
+                                            src="/icons/drag.svg"
+                                          ></img>
+                                        </div>
+                                      </>
+                                    )}
+                                    {hasData(item) && (
+                                      <>
+                                        <img
+                                          className={styles.cover}
+                                          style={{
+                                            borderRadius: isCircle
+                                              ? "100%"
+                                              : borderRadius,
+                                            height: `${isCircle ? "150px" : "unset"}`,
+                                            width: `${isCircle} ? "150px" : "unset`,
+                                            maxHeight: "150px",
+                                            maxWidth: "150px",
+                                            border: `${borderSize}px solid ${borderColor}`,
+                                            boxShadow: `${showShadows
+                                              ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                              : "unset"
+                                              }`,
+                                          }}
+                                          src={"https:" + item.cover}
+                                          alt="Cover"
+                                          width={isCircle ? 100 : "unset"}
+                                        ></img>
+                                        {showTitles &&
+                                          titlesPosition === Position.cover && (
+                                            <div
+                                              className={styles["cover-titles"]}
+                                              style={{
+                                                fontFamily: font,
+                                                color: textColor,
+                                                textShadow: `${showShadows
+                                                  ? "black 1px 1px 1px"
+                                                  : ""
+                                                  }`,
+                                              }}
+                                            >
+                                              <div>
+                                                {`${showNumbers ? `${i + 1}. ` : ""
+                                                  }` + item.title}
+                                              </div>
+                                            </div>
+                                          )}
+                                      </>
+                                    )}
+                                  </div>
+                                ))}
                             </div>
-                          ))}
+                            <div
+                              style={{
+                                gridTemplateColumns: `repeat(6, 1fr)`,
+                                gap: gap,
+                                padding: gap,
+                              }}
+                              className={styles["workspace-covers"]}
+                            >
+                              {items
+                                .filter((_item, i) => i < 12)
+                                .map((item, i) => (
+                                  <div
+                                    key={i}
+                                    className={`${styles["workspace-cover"]} ${[draggingItem.index, hoverItem].includes(i) &&
+                                      styles.dragging
+                                      }`}
+                                    style={{
+                                      minHeight: "125px",
+                                      width: "125px",
+                                      height: `${titlesPosition === Position.side
+                                        ? "125px"
+                                        : "unset"
+                                        }`,
+                                      borderRadius: borderRadius,
+                                    }}
+                                    onDrop={() => onDrop(i)}
+                                    onDragOver={(e) => {
+                                      e.preventDefault();
+                                      setHoverItem(i);
+                                    }}
+                                    draggable={hasData(item)}
+                                    onDragStart={() => {
+                                      setDraggingItem({
+                                        item: { ...item },
+                                        index: i,
+                                        origin: "collection",
+                                      });
+                                    }}
+                                    onClick={(e: any) => {
+                                      if (e?.target?.id !== "remove") {
+                                        if (draggingItem.index === -1) {
+                                          if (hasData(item)) {
+                                            setDraggingItem({
+                                              item: { ...item },
+                                              index: i,
+                                              origin: "collection",
+                                            });
+                                          }
+                                        } else {
+                                          onDrop(i);
+                                        }
+                                      }
+                                    }}
+                                    onDragEnd={() => resetDrag()}
+                                  >
+                                    {!hasData(item) && (
+                                      <div
+                                        style={{
+                                          backgroundColor: `#ccc`,
+                                          height: "125px",
+                                          width: "125px",
+                                          borderRadius: isCircle
+                                            ? "100%"
+                                            : borderRadius,
+                                          boxShadow: `${showShadows
+                                            ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                            : "unset"
+                                            }`,
+                                          border: `${borderSize}px solid ${borderColor} `,
+                                        }}
+                                        className={`${styles.cover} ${styles["no-items"]}`}
+                                      >
+                                        <span style={{ color: "black" }}>
+                                          {i + 1}
+                                        </span>
+                                      </div>
+                                    )}
+                                    {hasData(item) && draggingItem.index === -1 && (
+                                      <>
+                                        <div
+                                          id="remove"
+                                          onClick={() => {
+                                            dispatch(removeItem(i));
+                                            resetDrag();
+                                          }}
+                                          className={styles.delete}
+                                        >
+                                          <img
+                                            id="remove"
+                                            className={styles.icon}
+                                            src="/icons/remove.svg"
+                                          ></img>
+                                        </div>
+                                        <div
+                                          onClick={(e: any) => {
+                                            if (e?.target?.id !== "remove") {
+                                              if (draggingItem.index === -1) {
+                                                if (hasData(item)) {
+                                                  setDraggingItem({
+                                                    item: { ...item },
+                                                    index: i,
+                                                    origin: "collection",
+                                                  });
+                                                }
+                                              } else {
+                                                onDrop(i);
+                                              }
+                                            }
+                                          }}
+                                          className={styles.move}
+                                        >
+                                          <img
+                                            className={styles.icon}
+                                            src="/icons/drag.svg"
+                                          ></img>
+                                        </div>
+                                      </>
+                                    )}
+                                    {hasData(item) && (
+                                      <>
+                                        <img
+                                          className={styles.cover}
+                                          style={{
+                                            borderRadius: isCircle
+                                              ? "100%"
+                                              : borderRadius,
+                                            height: `${isCircle ? "125px" : "unset"}`,
+                                            width: `${isCircle ? "125px" : "unset"}`,
+                                            maxHeight: "125px",
+                                            maxWidth: "125px",
+                                            border: `${borderSize}px solid ${borderColor}`,
+                                            boxShadow: `${showShadows
+                                              ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                              : "unset"
+                                              }`,
+                                          }}
+                                          src={"https:" + item.cover}
+                                          alt="Cover"
+                                          width={isCircle ? 100 : "unset"}
+                                        ></img>
+                                        {showTitles &&
+                                          titlesPosition === Position.cover && (
+                                            <div
+                                              className={styles["cover-titles"]}
+                                              style={{
+                                                fontFamily: font,
+                                                color: textColor,
+                                                textShadow: `${showShadows
+                                                  ? "black 1px 1px 1px"
+                                                  : ""
+                                                  }`,
+                                              }}
+                                            >
+                                              <div>
+                                                {`${showNumbers ? `${i + 1}. ` : ""
+                                                  }` + item.title}
+                                              </div>
+                                            </div>
+                                          )}
+                                      </>
+                                    )}
+                                  </div>
+                                ))}
+                            </div>
+                            <div
+                              style={{
+                                gridTemplateColumns: `repeat(10, 1fr)`,
+                                gap: gap,
+                                padding: gap,
+                              }}
+                              className={styles["workspace-covers"]}
+                            >
+                              {items
+                                .filter((_item, i) => i < 20)
+                                .map((item, i) => (
+                                  <div
+                                    key={i}
+                                    className={`${styles["workspace-cover"]} ${[draggingItem.index, hoverItem].includes(i) &&
+                                      styles.dragging
+                                      }`}
+                                    style={{
+                                      minHeight: "75px",
+                                      width: "75px",
+                                      height: `${titlesPosition === Position.side
+                                        ? "75px"
+                                        : "unset"
+                                        }`,
+                                      borderRadius: borderRadius,
+                                    }}
+                                    onDrop={() => onDrop(i)}
+                                    onDragOver={(e) => {
+                                      e.preventDefault();
+                                      setHoverItem(i);
+                                    }}
+                                    draggable={hasData(item)}
+                                    onDragStart={() => {
+                                      setDraggingItem({
+                                        item: { ...item },
+                                        index: i,
+                                        origin: "collection",
+                                      });
+                                    }}
+                                    onClick={(e: any) => {
+                                      if (e?.target?.id !== "remove") {
+                                        if (draggingItem.index === -1) {
+                                          if (hasData(item)) {
+                                            setDraggingItem({
+                                              item: { ...item },
+                                              index: i,
+                                              origin: "collection",
+                                            });
+                                          }
+                                        } else {
+                                          onDrop(i);
+                                        }
+                                      }
+                                    }}
+                                    onDragEnd={() => resetDrag()}
+                                  >
+                                    {!hasData(item) && (
+                                      <div
+                                        style={{
+                                          backgroundColor: `#ccc`,
+                                          height: "75px",
+                                          width: "75px",
+                                          borderRadius: isCircle
+                                            ? "100%"
+                                            : borderRadius,
+                                          boxShadow: `${showShadows
+                                            ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                            : "unset"
+                                            }`,
+                                          border: `${borderSize}px solid ${borderColor} `,
+                                        }}
+                                        className={`${styles.cover} ${styles["no-items"]}`}
+                                      >
+                                        <span style={{ color: "black" }}>
+                                          {i + 1}
+                                        </span>
+                                      </div>
+                                    )}
+                                    {hasData(item) && draggingItem.index === -1 && (
+                                      <>
+                                        <div
+                                          id="remove"
+                                          onClick={() => {
+                                            dispatch(removeItem(i));
+                                            resetDrag();
+                                          }}
+                                          className={styles.delete}
+                                        >
+                                          <img
+                                            id="remove"
+                                            className={styles.icon}
+                                            src="/icons/remove.svg"
+                                          ></img>
+                                        </div>
+                                        <div
+                                          onClick={(e: any) => {
+                                            if (e?.target?.id !== "remove") {
+                                              if (draggingItem.index === -1) {
+                                                if (hasData(item)) {
+                                                  setDraggingItem({
+                                                    item: { ...item },
+                                                    index: i,
+                                                    origin: "collection",
+                                                  });
+                                                }
+                                              } else {
+                                                onDrop(i);
+                                              }
+                                            }
+                                          }}
+                                          className={styles.move}
+                                        >
+                                          <img
+                                            className={styles.icon}
+                                            src="/icons/drag.svg"
+                                          ></img>
+                                        </div>
+                                      </>
+                                    )}
+                                    {hasData(item) && (
+                                      <>
+                                        <img
+                                          className={styles.cover}
+                                          style={{
+                                            borderRadius: isCircle
+                                              ? "100%"
+                                              : borderRadius,
+                                            height: `${isCircle ? "75px" : "unset"}`,
+                                            width: `${isCircle ? "75px" : "unset"}`,
+                                            maxHeight: "75px",
+                                            maxWidth: "75px",
+                                            border: `${borderSize}px solid ${borderColor}`,
+                                            boxShadow: `${showShadows
+                                              ? "rgba(0, 0, 0, 0.4) 2px 2px 10px 0px"
+                                              : "unset"
+                                              }`,
+                                          }}
+                                          src={"https:" + item.cover}
+                                          alt="Cover"
+                                          width={isCircle ? 100 : "unset"}
+                                        ></img>
+                                        {showTitles &&
+                                          titlesPosition === Position.cover && (
+                                            <div
+                                              className={styles["cover-titles"]}
+                                              style={{
+                                                fontFamily: font,
+                                                color: textColor,
+                                                textShadow: `${showShadows
+                                                  ? "black 1px 1px 1px"
+                                                  : ""
+                                                  }`,
+                                              }}
+                                            >
+                                              <div>
+                                                {`${showNumbers ? `${i + 1}. ` : ""
+                                                  }` + item.title}
+                                              </div>
+                                            </div>
+                                          )}
+                                      </>
+                                    )}
+                                  </div>
+                                ))}
+                            </div>
+                          </>
+                        }
                       </div>
                       {showTitles && titlesPosition === Position.side && (
                         <div
@@ -1483,9 +1977,8 @@ export default function Home() {
                           style={{
                             fontFamily: font,
                             color: textColor,
-                            textShadow: `${
-                              showShadows ? "black 1px 1px 1px" : ""
-                            }`,
+                            textShadow: `${showShadows ? "black 1px 1px 1px" : ""
+                              }`,
                             padding: gap,
                           }}
                         >

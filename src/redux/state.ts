@@ -19,6 +19,7 @@ export type State = {
   textColor: string;
   titlesPosition: Position;
   items: Item[];
+  top42: boolean;
 };
 
 export enum BackgroundType {
